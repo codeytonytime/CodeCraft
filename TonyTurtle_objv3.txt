@@ -1,6 +1,3 @@
-local vector = require("vector")
-
-
 TonyTurtle = {}
 TonyTurtle.__index = TonyTurtle
 
