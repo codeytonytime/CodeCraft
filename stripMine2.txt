@@ -1,0 +1,35 @@
+local me = require("TonyTurtle_obj")
+local me = require("Coordinate_obj")
+
+
+function stripmine(dx, dy, dz, skipx, skipy, itterations)
+	
+	-- Establish Home
+	local success, HOME_X, HOME_Y, HOME_Z, HOME_DIRECTION = me:establishHome()
+	if success == false then 
+		print("Error: Failed to establish home.") 
+		return false
+	end
+	
+	-- Go to Mine Entrance
+	local success, MINE_X, MINE_Y, MINE_Z, MINE_DIRECTION = goToMineEntrance(HOME_X, HOME_Y, HOME_Z)
+	if success == false then 
+		print("Error: Failed to go to mine.") 
+		return false
+	end
+	
+	while me:getDistanceHome()
+	
+	
+	
+end
+	
+function goToMineEntrance(HOME_X, HOME_Y, HOME_Z)
+		me:faceDirection("South")
+		me:moveForward(3)
+		me:faceDirection("East")
+		me:moveForward(3)
+		success, x, y, z, direction = getLoc()
+		return true
+end
+

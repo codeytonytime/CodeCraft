@@ -1,0 +1,46 @@
+-- Function to fetch data from Pastebin
+local function fetchFromPastebin(url)
+    local response = http.get(url)  -- Make an HTTP GET request
+
+    if response then
+        local content = response.readAll()  -- Read the content
+        response.close()  -- Close the response
+        return content  -- Return the fetched data
+    else
+        error("Failed to fetch data from Pastebin")  -- Handle error
+    end
+end
+
+-- Function to update the script file
+local function updateScript(filename, url)
+    local newContent = fetchFromPastebin(url)  -- Fetch the latest script content from Pastebin
+
+    -- Write the new content to the specified file
+    local file = fs.open(filename, "w")  -- Open the file in write mode
+    file.write(newContent)  -- Write the new content
+    file.close()  -- Close the file
+
+    print("Updated script saved as " .. filename)
+end
+
+-- Example usage
+
+local pastebinUrl_update = "https://pastebin.com/raw/bcHHQLrb"
+local filename = "update"  -- Specify the filename to save the script
+updateScript(filename, pastebinUrl_update)
+
+local pastebinUrl_Coordinate_obj = "https://pastebin.com/raw/ErpFzDGU"
+local filename = "Coordinate_obj"  -- Specify the filename to save the script
+updateScript(filename, pastebinUrl_Coordinate_obj)
+
+local pastebinUrl_StripMine = "https://pastebin.com/raw/bRNZMzQz"
+local filename = "StripMine"  -- Specify the filename to save the script
+updateScript(filename, pastebinUrl_StripMine)
+
+local pastebinUrl_TonyTurtle_obj = "https://pastebin.com/raw/brXd6JGF"
+local filename = "TonyTurtle_obj"  -- Specify the filename to save the script
+updateScript(filename, pastebinUrl_TonyTurtle_obj)
+
+local pastebinUrl_test = "https://pastebin.com/raw/x7d7qm17"
+local filename = "test"  -- Specify the filename to save the script
+updateScript(filename, pastebinUrl_test)

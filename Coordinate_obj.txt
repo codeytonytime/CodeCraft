@@ -1,0 +1,17 @@
+Coordinate = {}
+Coordinate.__index = Coordinate
+
+function Coordinate:new(x, y, z)
+	local instance = setmetatable({}, Coordinate)
+	instance.x = x
+	instance.y = y
+	instance.z = z
+	return instance
+end
+
+function Coordinate:diff(Cord1, Cord2)
+	diff = Coordinate:new(Cord2.x - Cord1.x, Cord2.y - Cord1.y, Cord2.z - Cord1.z)
+	return diff
+end
+
+return Coordinate

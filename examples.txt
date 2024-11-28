@@ -1,0 +1,77 @@
+-- An example of a function to move 
+-- the turtle.
+
+function myFunction(param1, param2)
+    print(param1, param2)
+    for i = 1, param2 do
+        print("Hi")
+        end
+
+end
+
+function test_myFunction()
+    x1 = 3
+    x2 = 6
+    print("x1=", x1)
+    print("x2=", x2)
+    print("starting program...")
+    myFunction(x1, x2)
+    print("ending program...")
+end
+
+function printLoc()
+    print("Getting current location...")
+   -- gps.locate(6)    
+    x, y, z = gps.locate(5)
+
+    -- check gps successful
+    if x == nul or y == nul or z== nul then
+        print("GPS FAILED")
+    end
+     
+    print("Current location...")
+    print("X: ", x)
+    print("Y: ", y)
+    print("Z: ", z)           
+
+end
+
+function getLoc()
+    print("Getting location...")
+    x, y, z = gps.locate(5)
+    if x == nul or y == nul or z == nul then
+        print("Failed to get location.")
+        return nil, nil, nil
+    end
+    
+   return x, y, z   
+end
+
+
+function test_getLoc()
+    x, y, z = getLoc()
+    print(x)
+    print(y)
+    print(z)
+end
+
+function main()
+    x = turtle.getFuelLevel()
+    print(x)
+    
+    limit = x + 1
+    for i = 1, limit do
+        turtle.forward()
+    end
+end
+
+
+--test_getLoc()
+--printLoc()
+--test_myFunction()
+
+return {
+    getLoc = getLoc
+}
+   
+   

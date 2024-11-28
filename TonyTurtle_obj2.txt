@@ -1,0 +1,258 @@
+local Coordinate = require("Coordinate_obj")
+
+TonyTurtle = {}
+TonyTurtle.__index = TonyTurtle
+
+function TonyTurtle:new()
+	print("Initializing...")
+	local instance = setmetatable({}, self)
+	print("Getting direction...")
+	self.direction = TonyTurtle:getDirection()
+	print("Facing ", self.direction)
+	
+		
+	print("defining directions...")
+	self.directionsTable = {
+    North = 1,
+    South = 2,
+    East = 3,
+    West = 4,
+    [1] = "North",
+    [2] = "South",
+    [3] = "East",
+    [4] = "West"
+}
+	print(self.directionsTable)
+	
+	print("Setting Home")
+	
+	-- Save current coordinate as home. Eventually, add checks here to confirm Home is valid (fueling station and storage station). 
+	success, cord = TonyTurtle:getLoc()
+	if success then
+		print("Success! Home set.") 
+		instance.home = cord
+	else
+		print("Error: Failed to connect to gps")
+		return false
+	end
+	
+	print("Setting fuel chest...")
+	-- Set Fuel Chest
+	for i=1, 4 do
+		print("Looking for chest...")
+		success, dataTable = turtle.inspect()
+		if success and dataTable.name == "minecraft:chest" then
+			print("Fuel Chest located!")
+			success, instance.fuel_chest = TonyTurtle:getLoc()
+		else
+			print("Error: No Fuel Chest Found! Turning left...")
+			TonyTurtle:turnLeft()
+		end
+	end
+	if success == false then
+		print("Error: No Fuel Chest Available!")
+		return false
+	end
+	
+	
+	-- Set storage chest.
+	print("Setting storage chest...")
+	turtle.up()
+	for i=1, 4 do
+		success, dataTable = turtle.inspect()
+		if success and dataTable.name == "minecraft:chest" then
+			print("Storage Chest located!")
+			success, instance.storage_chest = TonyTurtle:getLoc()
+		else
+			print("Error: No Storage Chest Found! Turning left...")
+			TonyTurtle.turnLeft()
+		end
+	end
+	
+	turtle.down()
+	if success == false then
+		print("Error: No Storage Chest Available!")
+		return false
+	end
+	
+	print("Initialization complete!")
+	return instance
+end
+
+function TonyTurtle:goHome()
+	success, current_loc = TonyTurtle:getLoc()
+	loc_diff = Coordinate:diff(current_loc, self.home)
+	
+	-- Update axis 1
+	if success then
+		if loc_diff.x > 0 then
+			TonyTurtle:goDirection(x, "East")
+		elseif loc_diff.x < 0 then
+			TonyTurtle:goDirection(math.abs(x), "West")
+		else
+			print("Error: Failed to go home.")
+		end
+	end
+		
+	-- Update axis 2
+	if success then
+		if loc_diff.z > 0 then
+			TonyTurtle:goDirection(y, "North")
+		elseif loc_diff.z < 0 then
+			TonyTurtle:goDirection(math.abs(y), "South")
+		end
+	end	
+		
+	-- Update axis 3
+	if success then
+		if loc_diff.y > 0 then
+			TonyTurtle:goDirection(y, "UP")
+		elseif loc_diff.y < 0 then
+			TonyTurtle:goDirection(math.abs(y), "DOWN")
+		end
+	end	
+		
+end
+
+function TonyTurtle:goDirection(x, direction)
+
+	-- Check if valid direction. Return error if not. 
+	if self.directionsTable[direction] == nil then
+		print("Error: Invalid direction!")
+		return false
+	end
+	
+	
+	-- Turn until facing correction direction.
+	print("Attempting to face", direction)
+	for i=1, 4 do
+		if direction == self.direction then
+			print("Facing", self.direction, ", proceeding...")
+			break
+		else
+			if TonyTurtle:turnLeft() then
+				print("Turning left...")
+			end
+		end
+	end
+	
+	-- Check successfully facing direction
+	if(self.direction ~= direction) then 
+		print("Error: Unable to face correct direction!")
+		return false
+	end
+	
+	-- Move forward requested spaces, breaking blocks if necessary
+	for i=1, x do
+		if turtle.detect() then
+			print("Block detected")
+			if turtle.dig() then
+				print("Block broken1")
+			else
+				print("Error: Failed to break block!")
+			end
+		
+		end
+		print("Moving forward...")
+		turtle.forward()
+	end
+	return success
+end
+
+
+function TonyTurtle:getDirection()
+	for i=1, 4 do
+		success, dataTable = turtle.inspect()
+		if success then
+			-- can't use TonyTurtle:turnLeft() here since it uses self.direction, which is not yet defined when running this function for the first time during initialization.
+			print("Block in path, trying different direction...")
+			turtle.turnLeft()
+			
+		else
+			success, loc1 = TonyTurtle:getLoc()
+			print("Coordinate 1:", loc1.x, loc1.y, loc1.z)
+			turtle.forward()
+			success, loc2 = TonyTurtle:getLoc()
+			print("Coordinate 2:", loc2.x, loc2.y, loc2.z)
+			turtle.back()
+			
+			-- All coordinates change slightly. Look in the direction the step was actually taken. 
+			diff = Coordinate:diff(loc1, loc2)
+			if(math.abs(diff.x) > math.abs(diff.z)) then 		
+				if diff.x > 0 then 
+					return "North"
+				else
+					return "South"
+				end
+			elseif(math.abs(diff.z) > math.abs(diff.x)) then 
+				if diff.z > 0 then 
+					return "East"
+				else
+					return "West"
+				end
+			else 
+				print("Error: Not facing cardinal direction!")
+				return false
+			end
+		end
+	print("Error: Insufficient space for movement to determine direction")
+	end
+end
+			
+function TonyTurtle:turnLeft()
+	
+	print("Turning left...")
+	if turtle.turnLeft() then
+		direction = self.direction
+		for key, value in pairs(self.directionsTable) do
+			if value == direction then 
+				self.direction = self.directionsTable[key - 1]
+			end
+		end
+		print("Now facing", turtle.direction)
+	else
+		print("Error: Something went wrong... turning left?")
+		print(self.direction)
+		print("------")
+		return false
+    end
+	
+	return true
+end
+	
+function TonyTurtle:turnRight()
+	print("Turning right...")
+    turtle.turnRight()
+    if self.direction == "North" then
+        self.direction = "East"
+    elseif self.direction == "East" then
+        self.direction = "South"
+    elseif self.direction == "South" then
+        self.direction = "West"
+    elseif self.direction == "West" then
+        self.direction = "North"
+	else
+		print("Error: Something went wrong... turning right?")
+    end
+end			
+	
+
+function TonyTurtle:getLoc()
+    print("Getting location...")
+    x, y, z = gps.locate(5)
+    if x == nul or y == nul or z == nul then
+        print("Failed to get location.")
+        return false, nil
+    end
+	loc = Coordinate:new(x, y, z)
+	return true, loc
+end
+
+
+function setHome()
+	success, loc = TonyTurtle:getLoc()
+	self.Home = loc
+	return true
+end
+
+return TonyTurtle

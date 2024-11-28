@@ -1,0 +1,124 @@
+local me = require("Coordinate")
+
+TonyTurtle = {}
+TonyTurtle.__index = TonyTurtle
+
+function TonyTurtle:new()
+	local instance = setmetatable({}, TonyTurtle)
+	instance.direction = "North"
+	instance.fuel = turtle.getFuelLevel()
+	instance.HOME_X = nil
+	instance.HOME_Y = nil
+	instance.HOME_Z = nil
+	return instance
+end
+
+
+function TonyTurtle:turnLeft()
+	turtle.turnLeft()
+    if self.direction == "North" then
+        self.direction = "West"
+    elseif self.direction == "West" then
+        self.direction = "South"
+    elseif self.direction == "South" then
+        self.direction = "East"
+    elseif self.direction == "East" then
+        self.direction = "North"
+    end
+end
+	
+function TonyTurtle:turnRight()
+    turtle.turnRight()
+    if self.direction == "North" then
+        self.direction = "East"
+    elseif self.direction == "East" then
+        self.direction = "South"
+    elseif self.direction == "South" then
+        self.direction = "West"
+    elseif self.direction == "West" then
+        self.direction = "North"
+    end
+end
+
+function TonyTurtle:faceDirection(direction)
+	if(direction == "North" or direction =="South" or direction == "East" or direction == "West") then 
+		while(self.direction ~= direction) do
+			TonyTurtle:turnRight()
+		end
+		return true
+	else 
+		return false
+	end
+		
+end
+
+function TonyTurtle:moveForward(x)
+	
+	if x == nil then 
+		print("Error, specify distance")
+	end
+	
+	for i=0, x do
+		success, dataTable = turtle.inspect()
+		if(success == false) then
+			turtle.forward()
+		else
+			print("Block in the way")
+			return false, i
+	end
+	return true
+end
+
+	
+function TonyTurtle:getLoc()
+    print("Getting location...")
+    x, y, z = gps.locate(5)
+    if x == nul or y == nul or z == nul then
+        print("Failed to get location.")
+        return false, nil, nil, nil
+    end
+	loc = Coordinate(x, y, z, self.direction)
+	return true, x, y, z, self.direction   
+end
+
+function TonyTurtle:checkifHome()
+	print("Checking if home")
+	success, x, y, z = self:getLoc()
+	if success then return true else return false end
+end
+
+function TonyTurtle:checkHaveHome()
+	print("Checking if a home is set...")
+	if self.HOME_X == nil then
+		print("No home set")
+		return false
+	end
+	return true
+end
+
+function TonyTurtle:getDistanceHome()
+	success, x, y, z = TonyTurtle:getLoc()
+	if success then
+		dx = math.abs(x - HOME_X)
+		dy = math.abs(y - HOME_Y)
+		dz = math.abs(z - HOME_Y)
+	end
+	sum = dx+dy+dz
+	return sum
+end
+
+--function TonyTurtle:establishHome()
+--	success, x, y, z = TonyTurtle:getLoc()
+--	if success then
+--		
+--	end
+--end
+
+
+
+
+
+
+
+-- Final comment, return object
+return TonyTurtle

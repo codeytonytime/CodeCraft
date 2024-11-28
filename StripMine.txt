@@ -1,0 +1,110 @@
+local examples = require("examples")
+
+
+
+function refuel(MAX_FUEL, HOME_X, HOME_Y, HOME_Z)
+
+	-- Check current location matches home location. 
+	x, y, z = getLoc()
+	if(x == HOME_X and y == HOME_Y and z == HOME_Z)
+		
+		-- Look for chest.
+		if(current_block == "minecraft:chest") then
+	
+			-- Attempt to refull
+			local fuel_level = turtle.getFuelLevel()
+			if turtle.getFuelLevel <= MAX_FUEL then
+				turtle.suck()
+				success = turtle.refuel()
+				if sucess == false then
+					print("Failed to fuel")
+					return false
+	return true
+		
+		
+	end
+	-- If chest found, refuel.  
+	if(current_block == "minecraft:chest") then
+	
+			-- Attempt to refull
+			local fuel_level = turtle.getFuelLevel()
+			if turtle.getFuelLevel <= MAX_FUEL then
+				turtle.suck()
+				success = turtle.refuel()
+				if sucess == false then
+					print("Failed to fuel")
+					return false
+	return true
+end
+
+
+function dumpInventory()
+
+
+function establish_Home()
+	
+	-- Get current coordinates.
+	HOME_X, HOME_Y, HOME_Z = examples.getLoc()
+	print("Home is located at:", x, ", ", y, ", ", z)
+	
+	-- Face chests. At some point, should keep track of direction facing!
+	turtle.left()
+	
+	-- Attempt to refuel. 
+	
+	
+	
+	
+	
+	-- Inspect for chest. If chest found, try to empty inventory.  
+	sucess, current_block_table = turtle.inspect()
+	if sucess then
+		
+		-- If chest found, try to empty inventory.  
+		if(current_block == "minecraft:chest") then
+			
+			-- Dump all storge slots except fuel.
+			for slot=2, 16 do
+				local success, current_slot_Table = turtle.getItemDetail(slot)
+				
+				-- Drop item. If unable, throw error and stay home.
+				if success then
+					turtle.select(slot)
+					local x = turtle.drop()
+					if(local x == false)
+						print("Error: Chest Inventory is full")
+						return false
+					end
+				end
+				
+			end
+		end
+		
+		-- Move to storage chest. 
+		turtle.up()
+		
+
+	end
+
+-- Return home successfully established and home coordinates. 
+	return true, HOME_X, HOME_Y, HOME_Z
+
+end
+	
+	-- Check if storage chest has fuel.
+	
+	
+	
+
+end
+
+function stripmine(x, y, z)
+	
+	-- Establish Home
+	 success, HOME_X, HOME_Y, HOME_Z, = establish_Home()
+	if success == false then print("Error: Failed to establish home.") return false
+
+end
+main()
+
+

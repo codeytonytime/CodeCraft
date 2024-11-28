@@ -1,0 +1,9 @@
+-- This is an initial attempt at programming in Lua!
+
+-- Move forward two spaces. 
+turtle.forward()
+turtle.forward()-- This is an initial attempt at programming in Lua!
+
+-- Move forward two spaces. 
+turtle.forward()
+turtle.forward()
