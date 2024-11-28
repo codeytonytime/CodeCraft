@@ -2,4 +2,4 @@ local TonyTurtle = require("TonyTurtle")
 
 me = TonyTurtle:new()
 
-local success, result = pcall(me.getLoc())
+local success, result = pcall(me.getLoc()) 
