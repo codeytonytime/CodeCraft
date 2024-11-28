@@ -28,8 +28,8 @@ end
 
 -- Define your files and their GitHub raw URLs here
 local files = {
-    ["git_update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_update.txt?token=GHSAT0AAAAAAC24XHVGICS5L6A2WKBWP6ICZ2I3XDA",
-	["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt?token=GHSAT0AAAAAAC24XHVG5HJEFQZ3SVVVBEIEZ2I3XYA",
+    ["git_update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_update.txt",
+	["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt",
 }
 
 -- Update and handle errors

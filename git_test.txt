@@ -1,9 +1,3 @@
 print("hello world!")
 
 
-
--- Define your files and their GitHub raw URLs here
-local files = {
-    ["git_update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_update.txt,
-	["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt",
-}
