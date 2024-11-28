@@ -3,3 +3,8 @@ local TonyTurtle = require("TonyTurtle")
 me = TonyTurtle:new()
 
 local success, result = pcall(me.getLoc())
+if success then
+	print("Current location:", result)
+else then
+	print("error:", result)
+end
