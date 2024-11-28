@@ -30,7 +30,7 @@ end
 
 function TonyTurtle:getLoc()
     print("Getting location...")
-    x, y, z = gps.locate()
+    x, y, z = gps.locate(5)
     
 	-- Check for error.
 	if x == nul or y == nul or z == nul then
