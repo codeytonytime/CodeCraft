@@ -1,6 +1,6 @@
--- Auto-Update Script
+-- Auto-Update Script with Enhanced Debugging
 function downloadFile(url, filename)
-    print("Downloading file from:", url)
+    print("Downloading:", url)
     local response = http.get(url)
     if response then
         local content = response.readAll()
@@ -8,18 +8,22 @@ function downloadFile(url, filename)
         local file = fs.open(filename, "w")
         file.write(content)
         file.close()
-        print("File updated:", filename)
+        print("Successfully updated:", filename)
     else
-        print("Error: Failed to download file from:", url)
+        print("Error: Failed to download from", url)
+        return false
     end
+    return true
 end
 
 function autoUpdate(files)
     for filename, url in pairs(files) do
         print("Updating:", filename)
-        downloadFile(url, filename)
+        local success = downloadFile(url, filename)
+        if not success then
+            print("Failed to update:", filename)
+        end
     end
-    print("All files updated!")
 end
 
 -- Define your files and their GitHub raw URLs here
@@ -28,8 +32,7 @@ local files = {
 	["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt?token=GHSAT0AAAAAAC24XHVG5HJEFQZ3SVVVBEIEZ2I3XYA",
 }
 
--- Run the update process
+-- Update and handle errors
+print("Starting update...")
 autoUpdate(files)
-
-print("Update complete. Restarting main script...")
-shell.run("script1.lua") -- Change this to your main script
+print("Update complete.")
