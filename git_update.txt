@@ -1,38 +1,44 @@
--- Auto-Update Script with Enhanced Debugging
-function downloadFile(url, filename)
+-- Enhanced Auto-Update Script
+local function downloadFile(url, filename)
     print("Downloading:", url)
     local response = http.get(url)
-    if response then
-        local content = response.readAll()
-        response.close()
-        local file = fs.open(filename, "w")
-        file.write(content)
-        file.close()
-        print("Successfully updated:", filename)
-    else
-        print("Error: Failed to download from", url)
+    if not response then
+        print("Error: Failed to connect to URL:", url)
         return false
     end
+
+    local content = response.readAll()
+    response.close()
+
+    local file = fs.open(filename, "w")
+    if not file then
+        print("Error: Unable to write to file:", filename)
+        return false
+    end
+
+    file.write(content)
+    file.close()
+    print("Successfully updated:", filename)
     return true
 end
 
-function autoUpdate(files)
+local function autoUpdate(files)
     for filename, url in pairs(files) do
-        print("Updating:", filename)
+        print("Checking file:", filename)
         local success = downloadFile(url, filename)
         if not success then
-            print("Failed to update:", filename)
+            print("Update failed for:", filename)
         end
     end
 end
 
--- Define your files and their GitHub raw URLs here
+-- Define files to update
 local files = {
-    ["git_update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_update.txt",
-	["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt",
+    ["git_update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/main/git_update.lua",
+    ["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/main/git_test.lua",
 }
 
--- Update and handle errors
+-- Start update process
 print("Starting update...")
 autoUpdate(files)
 print("Update complete.")
