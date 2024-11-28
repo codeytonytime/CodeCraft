@@ -1,4 +1,9 @@
-print("hello world!")
+local TonyTurtle = require("TonyTurtle")
 
+me = TonyTurtle:new()
 
-print("testing update")
+local success, result = pcall(me.getLoc())
+if success then
+	print("Current location", print(result)
+else
+	print("Error", error)

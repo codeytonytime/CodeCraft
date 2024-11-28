@@ -18,59 +18,39 @@ function TonyTurtle:new()
 }
 
 
-
-
-function TonyTurtle:getDirection()
-	for i=1, 4 do
-		
-		- If block in path, try turning. 
-		success, dataTable = turtle.inspect()
-		if success then
-			print("Block in path, trying different direction...")
-			turtle.turnLeft()
-			
-		else
-			success, loc1 = TonyTurtle:getLoc()
-			print("Coordinate 1:", loc1.x, loc1.y, loc1.z)
-			turtle.forward()
-			success, loc2 = TonyTurtle:getLoc()
-			print("Coordinate 2:", loc2.x, loc2.y, loc2.z)
-			turtle.back()
-			
-			-- All coordinates change slightly. Look in the direction the step was actually taken. 
-			diff = Coordinate:diff(loc1, loc2)
-			if(math.abs(diff.x) > math.abs(diff.z)) then 		
-				if diff.x > 0 then 
-					return "North"
-				else
-					return "South"
-				end
-			elseif(math.abs(diff.z) > math.abs(diff.x)) then 
-				if diff.z > 0 then 
-					return "East"
-				else
-					return "West"
-				end
-			else 
-				print("Error: Not facing cardinal direction!")
-				return false
-			end
-		end
-	print("Error: Insufficient space for movement to determine direction")
-	end
-end
-
-
-
-
-
-
-
-
-
-	
 	return instance
 end
+
+
+
+
+
+
+
+
+function TonyTurtle:getLoc()
+    print("Getting location...")
+    x, y, z = gps.locate()
+    
+	-- Check for error.
+	if x == nul or y == nul or z == nul then
+        error("Unable to retrieve location")
+    end
+	
+	loc = vector.new(x, y, z)
+	return loc
+end
+
+
+
+
+
+
+
+
+
+
+
 
 
 return TonyTurtle
