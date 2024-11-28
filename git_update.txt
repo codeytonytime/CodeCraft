@@ -25,7 +25,6 @@ end
 -- Define your files and their GitHub raw URLs here
 local files = {
     ["test_git.lua"] = "https://raw.githubusercontent.com/username/repository/branch/script1.lua",
-    ["script2.lua"] = "https://raw.githubusercontent.com/username/repository/branch/script2.lua"
 }
 
 -- Run the update process
