@@ -31,14 +31,14 @@ end
 function TonyTurtle:getLoc()
     print("Getting location...")
     x, y, z = gps.locate(5)
-    
+    print(x, y, z)
 	-- Check for error.
 	if x == nul or y == nul or z == nul then
         error("Unable to retrieve location")
     end
 	
-	loc = vector.new(x, y, z)
-	return loc
+	vec = vector.new(x, y, z)
+	return vec
 end
 
 
