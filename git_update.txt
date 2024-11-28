@@ -36,6 +36,7 @@ end
 local files = {
     ["git_update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_update.txt",
     ["git_test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt",
+	["TonyTurtle.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/TonyTurtle_objv3.txt",
 }
 
 -- Start update process
