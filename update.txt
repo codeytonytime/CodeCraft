@@ -34,8 +34,8 @@ end
 
 -- Define files to update
 local files = {
-    ["update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_update.txt",
-    ["test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/git_test.txt",
+    ["update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/update.txt",
+    ["test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/test.txt",
 	["TonyTurtle.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/main/TonyTurtle_objv3.txt",
 }
 
