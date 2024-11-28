@@ -8,3 +8,5 @@ if success then
 else then
 	print("error:", result)
 end
+
+print("all done!")

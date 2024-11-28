@@ -1,7 +1,14 @@
+local function generateCacheBustedURL(baseURL)
+    local timestamp = os.time()
+    return baseURL .. "?cache_bust=" .. timestamp
+end
+
+
 -- Enhanced Auto-Update Script
 local function downloadFile(url, filename)
+	timestamped_url = generateCacheBustedURL(url)
     print("Downloading:", url)
-    local response = http.get(url)
+    local response = http.get(timestamped_url)
     if not response then
         print("Error: Failed to connect to URL:", url)
         return false
@@ -31,6 +38,7 @@ local function autoUpdate(files)
         end
     end
 end
+
 
 -- Define files to update
 local files = {
