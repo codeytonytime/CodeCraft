@@ -4,6 +4,6 @@ me = TonyTurtle:new()
 
 local success, result = pcall(me.getLoc())
 if success then
-	print("Current location", print(result)
+	print("Current location", print(result))
 else
 	print("Error", error)
