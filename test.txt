@@ -1,10 +1,4 @@
-local TonyTurtle = require("TonyTurtle_obj")
-local Coordinate = require("Coordinate_obj")
+print("hello world!")
 
 
-
-t1 = TonyTurtle:new()
-
-
-v1 = vector.new(1, 2, 3)
-print(v1.x)
+print("testing update")
