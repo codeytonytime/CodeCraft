@@ -11,3 +11,4 @@ else
 end
 
 print("all done!")
+print("this should be instant!")
