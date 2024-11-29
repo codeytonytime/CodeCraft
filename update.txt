@@ -42,10 +42,14 @@ end
 
 -- Define files to update
 local files = {
-    ["update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/TonyTurtle/update.txt",
-    ["test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/TonyTurtle/test.txt",
-	["TonyTurtle.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/TonyTurtle/TonyTurtle_objv3.txt",
+    ["update.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/TonyTurtle/update.txt?version=" .. os.time(),
+    ["test.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/TonyTurtle/test.txt?version=" .. os.time(),
+	["TonyTurtle.lua"] = "https://raw.githubusercontent.com/codeytonytime/CodeCraft/refs/heads/TonyTurtle/TonyTurtle_objv3.txt?version=" .. os.time(),
 }
+
+
+
+
 
 -- Start update process
 print("Starting update...")
