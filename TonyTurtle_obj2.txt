@@ -192,7 +192,7 @@ function TonyTurtle:getDirection()
 				end
 			else 
 				print("Error: Not facing cardinal direction!")
-				return false
+				return nil
 			end
 		end
 	print("Error: Insufficient space for movement to determine direction")

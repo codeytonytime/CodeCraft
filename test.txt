@@ -1,14 +1,23 @@
-local TonyTurtle = require("TonyTurtle")
+def test_getLoc()
 
-me = TonyTurtle:new()
+	local TonyTurtle = require("TonyTurtle")
 
-local success, result = pcall(function() return me:getLoc() end)
-print(success, result)
-if success then
-	print("Current location:", result)
-else
-	print("error:", result)
+	me = TonyTurtle:new()
+
+	local success, result = pcall(function() return me:getLoc() end)
+	print(success, result)
+	if success then
+		print("Current location:", result)
+	else
+		print("error:", result)
+		return false
+	end
+	return true
 end
 
-print("all done!")
-print("this should be instant!")
+
+
+
+
+
+print("All tests passed!")

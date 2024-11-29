@@ -1,3 +1,17 @@
+
+
+-- Check and retrieve current location.
+local success, result = pcall(function() return me:getLoc() end)
+print(success, result)
+if success then
+	print("Current location:", result)
+else
+	print("error:", result)
+end
+
+
+
+
 -- An example of a function to move 
 -- the turtle.
 
