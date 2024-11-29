@@ -1,4 +1,4 @@
-def test_getLoc()
+function test_getLoc()
 
 	local TonyTurtle = require("TonyTurtle")
 
@@ -16,7 +16,7 @@ def test_getLoc()
 end
 
 
-def test_getDirection()
+function test_getDirection()
 	
 	local TonyTurtle = require("TonyTurtle")
 	me = TonyTurtle:new()
