@@ -16,8 +16,16 @@ def test_getLoc()
 end
 
 
+def test_getDirection()
+	
+	local TonyTurtle = require("TonyTurtle")
+	me = TonyTurtle:new()
+	
+	local success, result = pcall(function () return me:getDirection() end)
+	print(success, result)
+end
 
 
 
-
+test_getDirection()
 print("All tests passed!")
